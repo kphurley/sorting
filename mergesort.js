@@ -29,3 +29,14 @@ function merge(sortedArray) {
   }
   return resultsArray;
 }
+
+function mergeSort(array){
+    if(array.length <= 1) return array;
+    else{
+        var splitArrays = split(array);
+        var left = mergeSort(splitArrays[0]);
+        var right = mergeSort(splitArrays[1]);
+        return merge([left, right]);
+    }
+}
+
