@@ -86,4 +86,4 @@ describe('Mergesort function', function(){
     
 });
 
-//sortingPerformance();
+sortingPerformance();

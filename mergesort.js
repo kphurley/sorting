@@ -1,11 +1,10 @@
 function split(wholeArray) {
     if (wholeArray.length === 1) {
-        return wholeArray
+        return wholeArray;
     }
-    var first = parseInt(wholeArray.length / 2)
-        //var second = wholeArray.length - first;
-    var firstHalf = wholeArray.slice(0, first)
-    var secondHalf = wholeArray.slice(first)
+    var first = parseInt(wholeArray.length / 2);
+    var firstHalf = wholeArray.slice(0, first);
+    var secondHalf = wholeArray.slice(first);
     return [firstHalf, secondHalf];
 }
 
@@ -18,29 +17,30 @@ function merge(sortedArray, fnc) {
             if (a < b) return -1;
             else if (a === b) return 0;
             return 1;
-        }
+        };
     }
-    while (secondSorted.length !== 0 && firstSorted.length !== 0) {
-        //    var lessThan = function(){
-        //        var result;
-        //            var val = fnc(firstSorted[0], secondSorted[0]);
-        //            return val < 0;
-        //        }
-        //        else{
-        //            firstSorted[0] < secondSorted[0];
-        //        }
-        if (fnc(firstSorted[0], secondSorted[0]) < 0) {
-            resultsArray.push(firstSorted.shift());
+        
+    var leftIndex = 0, rightIndex = 0;
+    
+    while (leftIndex < firstSorted.length && rightIndex < secondSorted.length) {
+                
+        if (fnc(firstSorted[leftIndex], secondSorted[rightIndex]) < 0) {
+            resultsArray.push(firstSorted[leftIndex]);
+            leftIndex++;
         }
         else {
-            resultsArray.push(secondSorted.shift())
+            resultsArray.push(secondSorted[rightIndex]);
+            rightIndex++;
         }
     }
-    if (firstSorted.length === 0) {
-        resultsArray = resultsArray.concat(secondSorted)
+    
+    while (leftIndex < firstSorted.length) {
+        resultsArray.push(firstSorted[leftIndex]);
+        leftIndex++;
     }
-    if (secondSorted.length === 0) {
-        resultsArray = resultsArray.concat(firstSorted)
+    while (rightIndex < secondSorted.length) {
+        resultsArray.push(secondSorted[rightIndex]);
+        rightIndex++;
     }
     return resultsArray;
 }
