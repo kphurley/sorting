@@ -38,6 +38,52 @@ describe('Mergesort function', function(){
   });
     it('handles a longer array of numbers', function(){
     expect( mergeSort([9,3,5,7,1,8,2,6,5,9,1,5,7,2,7,9,1,6,2,6,7,8]) ).toEqual( [ 1, 1, 1, 2, 2, 2, 3, 5, 5, 5, 6, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9 ] );
-    
+          
   });
+    
+    it('handles string arrays', function() {
+       expect(mergeSort(['kevin', 'alex', 'nick', 'zeke'])).toEqual(['alex', 'kevin', 'nick', 'zeke']); 
+    });
+    
+    it('handles string arrays according to last letter', function() {
+        var comparator = function(a,b){
+            a = a.split('').reverse().join('');
+            b = b.split('').reverse().join('');
+            
+            if(a<b) return -1;
+            else if(a===b) return 0;
+            else return 1;
+        };
+       expect(mergeSort(['kevin', 'alex', 'nick', 'zeke'], comparator)).toEqual(['zeke', 'nick', 'kevin', 'alex']); 
+    });
+    
+    it('handles string arrays with duplicates', function() {
+        var comparator = function(a,b){
+            a = a.split('').reverse().join('');
+            b = b.split('').reverse().join('');
+            
+            if(a<b) return -1;
+            else if(a===b) return 0;
+            else return 1;
+        };
+       expect(mergeSort(['kevin', 'kevin', 'alex', 'nick', 'zeke'], comparator)).toEqual(['zeke', 'nick', 'kevin', 'kevin', 'alex']); 
+    });
+    
+    it('handles a comparator function', function() {
+       var arrOfObjs = [
+           {name: 'James', age: 0.5},
+           {name: 'Claire', age: 3},
+           {name: 'Catherine', age: 36}
+       ];
+        var comparator = function(a, b){
+            if(a.age>b.age) return -1;
+            else if(a.age === b.age) return 0;
+            else return 1;
+        }
+        
+        expect(mergeSort(arrOfObjs, comparator)).toEqual([{name: 'Catherine', age: 36}, {name: 'Claire', age: 3},{name: 'James', age: 0.5}]);
+    });
+    
 });
+
+//sortingPerformance();
